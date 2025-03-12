@@ -82,6 +82,45 @@ randn(2,3)
 randn(2,3, 5)
 
 
+#= loops, циклы, 
+while *condition*
+    *loop body*
+end
+=#
+n = 0
+while n < 10
+    n += 1
+    println(n)
+end
+
+=#
+#=
+my_friends = ["cats", "diamond", "Stoks"]
+i = 1
+while i <= length(my_friends)
+    friend = my_friends[i]
+    println("hi, my friend $friend")
+    i += 1
+end
+
+=#
+#=
+for n in 1:10
+    println(n)
+end
+
+my_friends = ["cats", "diamond", "Stoks"]
+for friend in my_friends
+    println("hi, my friend $friend")
+end
+=#
+
+m = 5
+n = 5
+A = zeros(m,n)
+
+
+
 
 
 
