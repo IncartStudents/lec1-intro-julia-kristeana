@@ -33,7 +33,54 @@ s4 = "are too many cats"
 =#
 
 
+
 #dictionaries
+
+my_notebook = Dict("best" => "890-323-323", "hell" => "890-111-999")
+
+
+my_notebook["kraken"] = "553-am-560"
+
+my_notebook
+#извлечение значения из словаря
+my_notebook["kraken"]
+
+# удаление элемента pop
+pop!(my_notebook, "kraken")
+my_notebook
+#переименовывать словари:
+my_notebook["kraken"] = "89058905"
+my_notebook
+
+
+# словари не упорядочены итерация порядка элемента нет
+
+
+#tuples, кортежи
+my_favoritefood = ("bliny", "borsh", "piroshki")
+#вывод элемента (по индексу) отсчет с 1, перезначать,переимеовывать кортежинельзя
+my_favoritefood[1]
+#my_favoritefood[1] ="keks"
+
+
+# array, массивы
+my_friends = ["cats", "diamond", "Stoks"]
+fibonacci = [1,1, 2, 3, 5, 8,]
+mixed = [1, 2, 3.14, "meow"]
+my_friends[3]
+my_friends[3] = "badaa boo"
+my_friends[1]
+push!(fibonacci, 13, 21)
+pop!(fibonacci)
+fibonacci
+favorite = [["poins", "line", "plane"], ["letter", "word", "sentence"]]
+numers = [[1, 2, 4, 5], [2, 6, 8, 1.2]]
+mixmix = [[1,2], ["mimimi", "mrmr"]]
+rand(1,5)
+rand(5,1)
+randn(2,3)
+randn(2,3, 5)
+
 
 
 
