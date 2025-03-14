@@ -115,9 +115,55 @@ for friend in my_friends
 end
 =#
 
-m = 5
-n = 5
-A = zeros(m,n)
+
+
+m, n = 5, 5
+A = zeros(m, n)
+for i in 1:m
+    for j in 1:n
+        A[i,j] = i + 2j
+    end
+end
+A
+
+B = zeros(m,n)
+for i in 1:m, j in 1:n
+         B[i,j] = i + j    
+    end
+end
+B
+# включение массива, массив изначально генерируется нулевой
+C = [i + j for i in 1:m, j in 1:n]
+
+for n in 1:10
+    A = [i + j for i in 1:n, j in 1:n] 
+    display(A)
+end
+#= условный оператор
+if *Condition*
+    *option1*
+    elseif *Condition2*
+        *option2*
+    else
+        *option3*
+    end
+=#
+x = 99
+y = 23
+#= if x > y
+    println("$x is large than $y")
+    elseif y > x
+        println("$x is less than $y")     
+    else
+        println("$x = $y")
+    end
+=#
+if x > y
+    x
+else 
+    y 
+end 
+
 
 
 
