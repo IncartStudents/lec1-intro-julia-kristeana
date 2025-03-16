@@ -270,6 +270,26 @@ foo(1.9, 7.8)
 foo(true, false)
 foo("take", "flip")
 
+#linalg
+A = rand(1:4, 3, 3)
+B = A
+C = copy(A)
+[A B C]
+A[2, 3] = 17
+[B C]
+A[3,4] = 15
+[B C]
+x = ones(3)
+b = A*x
+Asym = A + A'
+Asym
+A'
+Apd = A'A
+A\b
+Atall = A[:, 1:2]
+display(Atall)
+Atall\b
+A = randn(3, 3)
 
 
 
