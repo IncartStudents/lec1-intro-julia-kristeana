@@ -164,6 +164,111 @@ else
     y 
 end 
 
+#= тернарная операция, проверка условия с помощью символа ?
+
+a ? b : C
+if a
+    b
+else
+    c
+end
+=#
+(x < y) ? 5 : 4
+# оценка с сокращенным вычилением short curkuit a && B возвращает истину, (выполняет только если истина), иначе лодь
+(x > y) && println("okeey, $x < $y")
+(x < y) && println("okeey, $x < $y")
+
+# functions
+function sanya(name)
+        println("Hi, $name, abracadabra")
+    end
+sanya("piss")
+
+function f(x)
+    x^2
+end
+
+f(4)
+
+sanya2(name) = println("hi, $name tell me")
+f2(x) = x^3
+sanya2("kelle")
+sanya3 = name -> println("hi, $name nice to meet you")
+f3 = x -> x^3
+sanya3("priv")
+f3(23)
+sanya3(898909)
+A = rand(5,5)
+f3(A)
+=#
+#v = [3, 6, 2]
+#sort!(v)
+#v
+function f(x)
+    x^2
+end
+A = [i + 3*j for j in 0:2, i in 1:3]
+f(A)
+B = f.(A)
+println("$B")
+C = [2, 3]
+C = [2,3].^2
+#pakets
+import Pkg
+Pkg.add("Example")
+using Example
+
+hello("it's me")
+Pkg.add("Colors")
+using Colors
+palette = distinguishable_colors(100)
+rand(palette, 3, 3)
+Pkg.add("Plots")
+using Plots
+# graphiks
+x =-3:0.1:3
+f(x) = x^2
+y = f.(x)
+gr()
+plot(x,y, label="line")
+scatter!(x, y, label="points")
+#plotyjs()
+plot(x, y, label="line")
+scatter!(x, y, label="points")
+globaltemperatures = [14.4, 14.6, 14.8, 15.0, 15.2, 15.5]
+numirates = [45000, 50000, 15000,23000, 500]
+plot(numirates, globaltemperatures, legend=false)
+scatter!(numirates, globaltemperatures, legend=false)
+xflip!()
+xlabel!("number pirates[Approximate]")
+xlabel!("temperature[C]")
+title!("influence")
+p1 = plot(x, x)
+p2 = plot(x, x.^2)
+p3 = plot(x, x.^3)
+plot(p1, p2,p3, layout=(2,2), legend=false)
+#множественная дискретизация multiple dispatch
+methods(+)
+@which 3 + 3
+@which 3.0 + 3.2
+@which 3.0 + 3
+import Base: +
++(x::String, y::String) = string(x,y)
+"hello" + "word"
+@which "hello" + "word"
+x = "Ira" + "zolotse"
+println("$x")
+foo(x, y) = println("duck-toop")
+foo(x::Int, y::Float64) = println("x, y - integ. and float")
+foo(x::Float64, y::Float64) = println("x, y - floats")
+foo(x::Int, y::Int) = println("x, y - integs")
+foo(x::String, y::String) = println("$x, $y it is string")
+foo(1,1)
+foo(1, 2.2)
+foo(x, y)
+foo(1.9, 7.8)
+foo(true, false)
+foo("take", "flip")
 
 
 
