@@ -20,7 +20,7 @@ fn("The best", "day")
 # Что происходит с глобальной константой PI, о чем предупреждает интерпретатор?
 const PI = 3.14159
 PI = 3.14
-
+Pi переопределили значение
 # Что происходит с типами глобальных переменных ниже, какого типа `c` и почему?
 a = 1
 b = 2.0
@@ -79,7 +79,26 @@ xp(2.2, 3)
 Выполнить функции над объектами подтипов 1 и 2 и объяснить результат
 (функция выводит произвольный текст в консоль)
 =#
+abstract type Car end
+#color::Car = a.color
+struct Hona <: Car 
+model::String
+color::String
 
+car_mileage::Int
+end
+struct Opel <: Car end
+model::String
+color::String
+car_mileage::Int
+do_I_like_it::Bool
+end
+a = Hona("XP12", "black", 1100)
+b = Opel("vectra", "grey", 1500, true)
+function x1(a)
+    println("$a")    
+end
+x1(a)
 
 #===========================================================================================
 2. Функции:
