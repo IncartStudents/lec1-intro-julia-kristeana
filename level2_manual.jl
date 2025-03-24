@@ -147,7 +147,16 @@ end
 - через loop fusion и
 - с помощью reduce
 =#
-
+function pro()
+    A = [1, 5, 10, 12]
+    res = 1
+    for i in 1:length(A)
+        res = res * A[i]    
+        println("%res")
+    end
+    return res
+end
+println( pro())
 #=
 Написать функцию от одного аргумента и запустить ее по всем элементам массива
 с помощью точки (broadcast)
@@ -155,6 +164,21 @@ c помощью map
 c помощью list comprehension
 указать, чем это лучше явного цикла?
 =#
+function foo(x...)
+x = (1, 2, 5, 7)
+i = 1
+for i ∈ length(x)
+    y = 4 + (broadcast)sin(x)
+end
+end
+
+function foo(x...)
+x = (1, 2, 5, 7)
+i = 1
+for i ∈ length(x)
+    y = 4 + (map)sin(x)
+end
+end
 
 # Перемножить вектор-строку [1 2 3] на вектор-столбец [10,20,30] и объяснить результат
 
