@@ -275,6 +275,7 @@ apply!(cmd::AbstractCommand, target::Vector) = error("Not implemented for type $
 # Написать тест для функции
 
 
+
 #===========================================================================================
 6. Дебаг: как отладить функцию по шагам?
 =#
@@ -283,15 +284,31 @@ apply!(cmd::AbstractCommand, target::Vector) = error("Not implemented for type $
 Отладить функцию по шагам с помощью макроса @enter и точек останова
 =#
 
+function foo(x, y)
+    a = x * y
+    b = a^2 
+    return b
+end
+
+@enter foo(5, 3)
 
 #===========================================================================================
 7. Профилировщик: как оценить производительность функции?
 =#
-
+using Profile
+функция для профилировки
+#профилирование включается для данного вызова с помощью @profil eмакроса.
+@profile 'имя функции'
+#Получить результаты профилирования
+Profile.print()
 #=
 Оценить производительность функции с помощью макроса @profview,
 и добавить в этот репозиторий файл со скриншотом flamechart'а
 =#
+
+import Pkg
+Pkg.add("ProfileView")
+using Profile
 function generate_data(len)
     vec1 = Any[]
     for k = 1:len
@@ -302,12 +319,24 @@ function generate_data(len)
     vec3 = vec2 .^ 3 .- (sum(vec2) / len)
     return vec3
 end
-
-@time generate_data(1_000_000);
+generate_data(4)
+@profview generate_data(1000000)
 
 
 # Переписать функцию выше так, чтобы она выполнялась быстрее:
+using ProfileView
 
+function generate_data(len::Int) # Добавляем указание типа для len
+    vec1 = Vector{Float64}(undef, len)
+    for i = 1:len
+        vec1[i] = randn()
+    end
+    vec2 = sort(vec1)
+    vec3 = vec2 .^ 3 .- (sum(vec2) / len)
+    return vec3
+end
+
+@profview generate_data(1_000_000);
 
 #===========================================================================================
 8. Отличия от матлаба: приращение массива и предварительная аллокация?
