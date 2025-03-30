@@ -221,7 +221,13 @@ number = findfirst(n -> !(n in numbers_sorted), 0:9)
 # sort(numbers) сортирует и записывает в numbers_sorted
 # создается массив элементов от нуля до 9, findfirst ищет первый элемент, который не встречается в векторе numbers_sorted и выводит его порядковый номер.
 # Упростить этот код обработки
-
+ using Random
+Random.seed!(123)
+names = [string(rand('A':'Z'), '_', rand('0':'9'),
+ rand([".csv", ".bin"])) for _ in 1:100]
+same_names = unique([split(y, ".")[1] for y in names if startswith(y, "A")])
+numbers = sort(parse.(Int, map(x -> split(x, "_")[end], same_names)))
+number = findfirst(n -> !(n in numbers), 0:9)
 
 #===========================================================================================
 4. Свой тип данных на общих интерфейсах
@@ -249,11 +255,22 @@ println("копия ", my_animal_2)
 вычисляется при взятии индекса (getindex) по формуле (index - 1)^2
 =#
 
-import Pkg; Pkg.add("LazyArrays") # загрузка пакета
+#=import Pkg; Pkg.add("LazyArrays") # загрузка пакета
 using LazyArrays, LinearAlgebra
 A = LazyArray{6, 5}
 B = [((i- 1)^2) for i in 1:6, j in 1:5]
+=#
 
+struct LazyArray
+    length::Int
+end
+
+Base.getindex(arr::LazyArray, i::Int) = (i - 1)^2  # Вычисление элемента по индексу
+
+# Пример использования:
+lazy_array = LazyArray(15) # Создаем ленивый массив длиной 15
+
+println(lazy_array[5]) # вывод 5 элемента массива
 #=
 Написать два типа объектов команд, унаследованных от AbstractCommand,
 которые применяются к массиву:
@@ -273,8 +290,17 @@ apply!(cmd::AbstractCommand, target::Vector) = error("Not implemented for type $
 =#
 
 # Написать тест для функции
-
-
+function foo(x)
+    x = (1, 2, 5, 7)  # Заменяем входной x на кортеж (1, 2, 5, 7)
+    i = 1  # i не используется внутри цикла
+    y = () #Инициализируем, для доступа после цикла
+    for i in 1:length(x)
+        y = map(x -> x + 4, x)  # map применяет функцию к каждому элементу кортежа
+    end
+    return Tuple(y) #возвращаем кортеж
+end
+using Test
+@test foo((1, 2, 5, 7)) == (5, 6, 9, 11)
 
 #===========================================================================================
 6. Дебаг: как отладить функцию по шагам?
