@@ -267,8 +267,8 @@ end
 
 Base.getindex(arr::LazyArray, i::Int) = (i - 1)^2  # Вычисление элемента по индексу
 
-# Пример использования:
-lazy_array = LazyArray(15) # Создаем ленивый массив длиной 15
+# Пример 
+lazy_array = LazyArray(15) # ленивый массив длиной 15
 
 println(lazy_array[5]) # вывод 5 элемента массива
 #=
@@ -280,10 +280,47 @@ println(lazy_array[5]) # вывод 5 элемента массива
 =#
 abstract type AbstractCommand end
 apply!(cmd::AbstractCommand, target::Vector) = error("Not implemented for type $(typeof(cmd))")
+struct Sort <: AbstractCommand
+end
 
+struct ChangeAt <: AbstractCommand
+    index::Int
+    val::Any
+end
 
+function apply!(cmd::Sort, target::Vector)
+    sort!(target)
+end
+
+function apply!(cmd::ChangeAt, target::Vector)
+    target[cmd.index] = cmd.val
+end
+
+A = [0, 5, 2, 4,]
+B = Sort() 
+apply!(B, A)
+println(A)
+
+C = ChangeAt(2, 38)
+apply!(C, A)
+println(A) # [0, 38 4, 5]
 # Аналогичные команды, но без наследования и в виде замыканий (лямбда-функций)
+function Sort_2()
+    return (target::Vector) -> sort!(target)
+end
 
+function ChangeAt_2(index::Int, val::Any)
+    return (target::Vector) -> target[index] = val
+end
+
+AppSort_2 = Sort_2()
+AppChangeAt_2 = ChangeAt_2(2, 38)
+
+A = [4, 5, 6, 1, 0]
+AppSort_2(A)
+println(A)
+AppChangeAt_2(A)
+println(A) # [0, 38, 4, 5, 6]
 
 #===========================================================================================
 5. Тесты: как проверять функции?
