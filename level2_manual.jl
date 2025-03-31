@@ -595,8 +595,8 @@ include("proverka.jl")
 Ввести cmd в поле поиска.
 Нажать правой кнопкой мыши на командную строку и выбрать «Запуск от имени администратора».
 
-C:\Users\M\AppData\Local\Programs\Julia-1.11.3\bin\julia -e "println(\"Hi Julia!\")"
 
+C:\Users\M\AppData\Local\Programs\Julia-1.11.3\bin\julia -e "println(\"Hi Julia!\")"
 #=
 После выполнения задания Boids запустить julia из командной строки,
 передав в виде аргумента имя gif-файла для сохранения анимации
