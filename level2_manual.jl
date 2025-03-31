@@ -410,17 +410,79 @@ end
 и для каждой точки входного (x) и выходного (y) выходного массива вычисляет:
 y[i] = x[i] - x[i-1]
 =#
+function fun(x)
+    n = length(x)
+    y = Vector(undef, n-1)
 
+    for i in 1:(n-1)
+    y[i] = x[i+1] - x[i]
+    end
+    return y
+end
+x = [11, 3, 4, 6, 6]
+d = fun(x)
 #=
 Аналогичная функция, которая отличается тем, что внутри себя не аллоцирует новый массив y,
 а принимает его первым аргументом, сам массив аллоцируется до вызова функции
 =#
+x = [11, 3, 4, 6, 6]
+y = Vector(undef, length(x)-1)
 
+function fun(y, x)
+    n = length(x)
+    for i in 1:(n-1)
+    y[i] = x[i+1] - x[i]
+    end
+    return y
+end
+
+d = fun(x)
 #=
 Написать код, который добавляет элементы в конец массива, в начало массива,
 в середину массива
 =#
+x = [10, 2, 4, 4, 9]
+y = [0, 1]
+z = Vector{Int}(undef, length(x)+length(y))
 
+function beginning(z, x, y)
+    for i in 1:(length(y))
+    z[i] = y[i]
+    end
+    for i in 1:(length(x))
+    z[length(y)+i] = x[i]
+    end
+    return z
+end
+d = beginning(z, x, y)
+
+function middle(z, x, y)
+    n = div(length(x), 2)
+
+    for i in 1:n
+        z[i] = x[i]
+    end
+    for i in 1:(length(y))
+        z[n+i] = y[i]
+    end
+    for i in (n+1):length(x)
+        z[length(y)+i] = x[i]
+    end
+    return z
+end
+d = middle(z, x, y)
+
+
+function ending(z, x, y)
+    for i in 1:(length(x))
+        z[i] = x[i]
+        end
+        for i in 1:(length(y))
+        z[length(x)+i] = y[i]
+        end
+        return z
+end
+d = ending(z, x, y)
 
 #===========================================================================================
 9. Модули и функции: как оборачивать функции внутрь модуля, как их экспортировать
@@ -485,11 +547,32 @@ Pkg.activate(".")
 11. Сохранение переменных в файл и чтение из файла.
 Подключить пакеты JLD2, CSV.
 =#
+import Pkg
+Pkg.add("JLD2") 
+Pkg.add("CSV") 
+Pkg.add("DataFrames") 
+using CSV, JLD2, DataFrames
 
 # Сохранить и загрузить произвольные обхекты в JLD2, сравнить их
-
+data1 = 1
+data2 = 2
+jldsave("my_data.jld2"; data1=data1, data2=data2)
+loaded_data = load("my_data.jld2")
+println(data1 > data2)
 # Сохранить и загрузить табличные объекты (массивы) в CSV, сравнить их
 
+data3 = (Name = ["Borya", "Lev"], Age = ["22", "18"])
+data4 = (Name = ["Ilya", "Sanya"], Age = ["20", "26"])
+
+CSV.write("my_date_one.csv", data3)
+CSV.write("my_date_two.csv", data4)
+
+loaded_data3 = CSV.read("my_date_one.csv", DataFrame)
+loaded_data4 = CSV.read("my_date_two.csv", DataFrame)
+#age_x = (Int64, x[2, 2])  
+#age_y = (Int64, y[2, 2])
+# println(age_x > age_y)
+println(x[2, 2] > y[2,2])
 
 #===========================================================================================
 12. Аргументы запуска Julia
@@ -498,12 +581,21 @@ Pkg.activate(".")
 #=
 Как задать окружение при запуске?
 =#
-
+import Pkg
+Pkg.add("NAME") 
+using NAME
 #=
 Как задать скрипт, который будет выполняться при запуске:
 а) из файла .jl
 б) из текста команды? (см. флаг -e)
 =#
+а) создать файл C:\Users\...\proverka.jl . После в файле где работаем написать:
+include("proverka.jl")
+б) Нажать клавишу Windows и R.
+Ввести cmd в поле поиска.
+Нажать правой кнопкой мыши на командную строку и выбрать «Запуск от имени администратора».
+
+C:\Users\M\AppData\Local\Programs\Julia-1.11.3\bin\julia -e "println(\"Hi Julia!\")"
 
 #=
 После выполнения задания Boids запустить julia из командной строки,
