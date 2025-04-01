@@ -1,4 +1,3 @@
-
 module GameOfLife
 using Plots
 
@@ -10,8 +9,38 @@ end
 function step!(state::Life)
     curr = state.current_frame
     next = state.next_frame
+    rows, cols = size(curr)
+    summa = 0
+    for i in 1:rows
+    for j in 1:cols
+    for x in -1:1
+    for y in -1:1
+        if x == 0 && y == 0
+         continue
+        end
+        neight_row = mod1(i + x, rows)
+        neight_col = mod1(j + y, cols)
+        summa += curr[neight_row, neight_col]
+    end
+end
 
-    #=
+if curr[i, j] == 1 
+    if summa < 2
+        next[i, j] == 0
+    elseif summa > 3
+        next[i, j] == 0
+    else
+        next[i, j] = 1
+        continue
+    else
+        if summa = 3
+    next[i, j] == 1
+    else next[i, j] = 0
+    end
+end
+end
+end
+        #=
     TODO: вместо случайного шума
     реализовать один шаг алгоритма "Игра жизнь"
     =#
